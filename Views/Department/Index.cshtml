@@ -1,0 +1,149 @@
+﻿@using Microsoft.Extensions.Localization
+@using BussinesEmployee.Resource.Department
+@inject IStringLocalizer<SharedResource> sharedLocalizer
+@model IQueryable<BussinesEmployee.Models.DepartmentVM>
+@{
+    ViewBag.title = sharedLocalizer["Department"];
+    int counter = 1;
+    var culture = Thread.CurrentThread.CurrentCulture.Name;
+}
+@if (culture == "ar-EG")
+{
+    <a asp-action="Index" asp-controller="Department" asp-route-culture="en-US">@sharedLocalizer["English"]</a>
+
+}
+else
+{
+    <a asp-action="Index" asp-controller="Department" asp-route-culture="ar-EG">@sharedLocalizer["Arabic"]</a>
+}
+
+
+
+@*-----------------------------------------------------------------------------------------------*@
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2 style="text-align:center;">@sharedLocalizer["WTD"]</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a class="btn btn-success" asp-action="Create" asp-controller="Department">@sharedLocalizer["AddNewDpt"]</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+
+                            <thead>
+                                <tr>
+
+                                    <th class="text-center"> @sharedLocalizer["Id"] </th>
+                                    <th class="text-center"> @sharedLocalizer["DptName"]</th>
+                                    <th class="text-center"> @sharedLocalizer["DptCode"] </th>
+                                    <th class="text-center"> @sharedLocalizer["Edit"] </th>
+                                    <th class="text-center"> @sharedLocalizer["Delete"] </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">@(counter++) </td>
+
+                                        <td class="text-center">@(counter++)</td>
+                                        <td class="text-center">@item.DepartmentName</td>
+                                        <td class="text-center">@item.DepartmentCode</td>
+                                        <td class="text-center">
+                                            <a class="btn btn-primary" asp-action="Edit" asp-controller="Department"
+                                           asp-route-id="@item.DepartmentId">
+                                                @sharedLocalizer["Edit"]
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a id="confirmDelete" onclick="return confirm('Are you sure to delete this ?')"
+                                           class=" btn btn-danger" asp-action="Delete" asp-controller="Department"
+                                           asp-route-id="@item.DepartmentId">
+                                                @sharedLocalizer["Delete"]
+                                            </a>
+                                        </td>
+
+
+
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="~/js/script.js"></script>
+<script src="~/jquery/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        $('.js-basic-example').DataTable({
+            responsive: true,
+            paging: true,
+            pageLength: 5,
+            bSort: true,
+            bFilter: true,
+
+            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+
+
+        });
+
+
+
+    });
+
+
+</script>
+
+
+@section scripts{
+    <script src="~/customscript.js"></script>
+}

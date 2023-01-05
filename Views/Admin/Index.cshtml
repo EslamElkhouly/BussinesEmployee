@@ -1,0 +1,133 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Mvc;
+@model IQueryable<IdentityRole>
+@{
+    ViewBag.title = "Roles";
+    int counter = 1;
+
+}
+
+
+
+
+@*-----------------------------------------------------------------------------------------------*@
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2 style="text-align:center;">Welcome To Roles</h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a asp-controller="Admin" asp-action="CreateRole" class="btn btn-primary">Add New Role</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+
+                            <thead>
+                                <tr>
+
+                                    <th class="text-center"> Id </th>
+                                    <th class="text-center"> Role Name</th>
+                                    <th class="text-center"> Edit</th>
+                                    <th class="text-center"> Delete</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">@(counter++) </td>
+
+                                        <td class="text-center">@item.Name</td>
+
+                                        <td class="text-center"> <a class="btn btn-primary" asp-action="Edit" asp-controller="Admin" asp-route-roleId="@item.Id"> Edit </a></td>
+
+
+                                        <td class="text-center">
+                                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Admin" asp-route-roleId="@item.Id"
+                                           onclick="return confirm('Are you sure to delete @item.Name role')" ;>
+                                                Delete
+                                            </a>
+                                        </td>
+
+
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="~/js/script.js"></script>
+<script src="~/jquery/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        $('.js-basic-example').DataTable({
+            responsive: true,
+            paging: true,
+            pageLength: 5,
+            bSort: true,
+            bFilter: true,
+
+            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+
+
+        });
+
+
+
+    });
+
+
+</script>
+
+
+@section scripts{
+    <script src="~/customscript.js"></script>
+}

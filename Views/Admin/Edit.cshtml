@@ -1,0 +1,56 @@
+﻿@model BussinesEmployee.Models.UserRolesViewModel
+@{
+    ViewBag.title = "Modifiy Role";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form asp-action="Edit" asp-controller="Admin" method="post" class="form-group">
+    <div class="card">
+        <div class="header">
+            Edit Role
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="body">
+            <div class="form-group">
+                <div class="form-line">
+                    <input type="hidden" asp-for="RoleId" />
+                    <label asp-for="RoleName">Role Name</label>
+                    <input type="text" placeholder="Role Name" asp-for="RoleName" class="form-control"/>
+                    <span asp-validation-for="RoleName"></span>
+                </div>
+            </div>
+          <input type="submit" value="Update" class="btn btn-primary"/>
+          <a class="btn btn-primary" asp-action="Index" asp-controller="Admin">Cancel</a>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="header">
+            Users in this role
+        </div>
+        <div class="body">
+            @if (Model.UsersName.Any())
+            {
+                foreach (var name in Model.UsersName)
+                {
+                    <h5 class="title">@name</h5>
+                }
+            }
+            else{
+                <h5>there is no users in this role </h5>
+            }
+           
+        </div>
+      
+            <a asp-action="EditUsersInRole" asp-controller="Admin" class="btn btn-primary" asp-route-roleId="@Model.RoleId">Update</a>
+        <a asp-action="Test" asp-controller="Admin" class="btn btn-primary" asp-route-roleId="@Model.RoleId">Add or Romove Users</a>
+
+    </div>
+</form>
+<script src="~/jquery/jquery.min.js"></script>
+
+<script src="~/jquery-validate/jquery.validate.min.js"></script>
+
+<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

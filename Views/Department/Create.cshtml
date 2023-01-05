@@ -1,0 +1,49 @@
+﻿@model BussinesEmployee.Models.DepartmentVM;
+@{
+    ViewBag.title = "Create";
+
+}
+
+
+
+<form asp-action="Create" asp-controller="Department" method="post" class="form-group">
+    <div class="card">
+        <div class="header">
+            <div class="text-center">
+                <h2>Add New Department</h2>
+            </div>
+        </div>
+        <div class="body">
+        
+
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="DepartmentName">Department Name</label>
+                            <input type="text" asp-for="DepartmentName" placeholder="Department Name" class="form-control" />
+                            <span class="text-danger" asp-validation-for="DepartmentName"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="DepartmentCode">Department Code</label>
+                            <input type="text" asp-for="DepartmentCode" placeholder="Department Code" class="form-control" />
+                            <span class="text-danger" asp-validation-for="DepartmentCode"></span>
+                        </div>
+                    </div>
+            <input type="submit" value="save" class=" btn btn-primary waves-effect" />
+        </div>
+ 
+    </div>
+
+  
+                  
+         
+   
+
+</form>
+<script src="~/jquery/jquery.min.js"></script>
+
+<script src="~/jquery-validate/jquery.validate.min.js"></script>
+
+<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,329 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Welcome To | @ViewBag.title</title>
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+   
+
+        <!-- Bootstrap Core Css -->
+    <link href="~/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- JQuery DataTable Css -->
+    <link href="~/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="~/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+
+
+    <!-- Select Plugin Js -->
+   @* <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>*@
+    
+    <link href="~/css/themes/all-themes.css" rel="stylesheet" />
+    <link href="~/css/themes/all-themes.min.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body class="theme-red">
+
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+
+            @*name of website*@
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                {
+                       <a class="navbar-brand" asp-controller="Home" asp-action="index">Employee Website</a>
+                }
+                else if (signInManager.IsSignedIn(User) && User.IsInRole("Basic"))
+                {
+                    <a class="navbar-brand" asp-area="BasicInfo" asp-controller="BranchDefination" asp-action="index">Employee Website</a>
+                }  
+               
+             
+            </div>
+
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+
+
+
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="image">
+                    <img src="~/images/user.png" width="48" height="48" alt="User" />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Eslam Elkhouly</div>
+                    <div class="email">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            <div class="email">@User.Identity.Name</div>
+                        }
+                    </div>
+                    <div class="btn-group user-helper-dropdown">
+                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                        <ul class="dropdown-menu pull-right">
+                            <li><form asp-action="Logout" asp-controller="Account" method="post">
+                                <input  type="submit" class="btn btn-primary" value="Sign out"/>
+                            </form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                   
+                    @if (signInManager.IsSignedIn(User)&&User.IsInRole("Admin"))
+                    {
+                        <li class="active">
+                            <a asp-controller="Home" asp-action="index">
+                                <i class="material-icons">home</i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+
+                        @*Start Of Department Menu*@
+
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">home_work</i>
+                                <span>Departmemt</span>
+                            </a>
+
+
+                            <ul class="ml-menu">
+                                <li>
+                                    <a asp-controller="Department" asp-action="Index">List  Department</a>
+
+                                </li>
+
+                                <li>
+                                    <a asp-controller="Department" asp-action="Create">Create  Department</a>
+
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        @*End Of Department Menu*@
+                        @*______________________________________________________________________*@
+
+
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">person_add</i>
+                                <span>Employee</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a asp-controller="Employee" asp-action="Index">List  Employees</a>
+
+                                </li>
+
+                                <li>
+                                    
+                                    <a asp-controller="Employee" asp-action="Create">
+                                        
+                                        Create  Employee
+                                        </a>
+
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        @*End Of Employee Menu*@
+                        @*______________________________________________________________________*@
+
+
+                        @*Start Of Mail Menu*@
+
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">forum</i>
+                                <span>Mail</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a asp-controller="Mail" asp-action="MailBox">Mail Box </a>
+
+                                </li>
+
+                                <li>
+                                    <a asp-controller="Mail" asp-action="Index">Send Mail</a>
+
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        @*End Of Mail Menu*@
+                        @*______________________________________________________________________*@
+
+                        @*Start Of Authorization  Menu*@
+
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">rule</i>
+                                <span>Authorization</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a asp-controller="Admin" asp-action="Index"> Roles </a>
+
+                                </li>
+                                <li>
+                                    <a asp-controller="Admin" asp-action="CreateRole">Create Roles </a>
+
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+
+                        @*End Of Authorization Menu*@
+                        @*______________________________________________________________________*@
+                    }
+                    else if (signInManager.IsSignedIn(User) && User.IsInRole("Basic"))
+                    {
+                       
+                        @*Start Of basic Info Menu*@
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons"></i>
+                                <span>Basic Info</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li>
+                                    <a asp-area="BasicInfo" asp-controller="BranchDefination" asp-action="Index"> Branch  </a>
+
+                                </li>
+
+                                <li>
+                                    <a asp-area="BasicInfo" asp-controller="Inventory" asp-action="Index">Inventory  </a>
+
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        @*End Of basic Info Menu*@
+                        @*______________________________________________________________________*@
+                    }
+
+
+
+
+
+
+
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; <span id="getYear">
+                        <script>
+                            document.getElementById("getYear").textContent = new Date().getFullYear()
+                        </script>
+                    </span> <a href="javascript:void(0);">Elkhouly - Design</a>.
+                </div>
+
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+
+    </section>
+
+
+
+
+
+    @*The Body Of my layout*@
+
+
+    <section class="content">
+        <div class="container-fluid">
+
+            @RenderBody()
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+    @RenderSection("scripts", false);
+
+
+    <!-- Jquery Core Js -->
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="~/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="~/plugins/jquery-datatable/jquery.datatables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/datatables.bootstrap.js"></script>
+
+
+
+
+
+    @*for export*@
+   @* <script src="~/exports/datatables.buttons.min.js"></script>
+    <script src="~/exports/jszip.min.js"></script>
+    <script src="~/exports/pdfmaker.min.js"></script>
+    <script src="~/exports/vfs_fonts.js"></script>
+    <script src="~/exports/buttons.html5.min.js"></script>*@
+
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="~/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="~/plugins/jquery-countto/jquery.countTo.js"></script>
+
+    <!-- Morris Plugin Js -->
+    <script src="~/plugins/raphael/raphael.min.js"></script>
+    <script src="~/plugins/morrisjs/morris.js"></script>
+
+    <!-- Custom Js -->
+    <script src="~/js/admin.js"></script>
+    <script src="~/js/pages/index.js"></script>
+
+    <!-- Demo Js -->
+    <script src="~/js/demo.js"></script>
+</body>
+
+</html>

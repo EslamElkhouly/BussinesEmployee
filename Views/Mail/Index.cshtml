@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.title = "Mail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<h1 style="color:red;">@TempData["message"]</h1>
+
+<form class="form-group" action="/Mail/SendMail" method="post">
+
+    <div class="card">
+        <div class="header">
+            Send Emails
+        </div>
+        <div class="body">
+            <div class="row clearfix">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label>Title</label>
+                            <input type="text" name="title" class="form-control" />
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label>Message Body</label>
+                            <textarea placeholder="Type Here What you want" name="body" class="form-control resize auto-growth"></textarea>
+
+                        </div>
+                    </div>
+                 
+                         
+                       
+                </div>
+            </div>
+            <input type="submit" value="Send" class="btn btn-primary" />
+        </div>
+    </div>
+
+   
+
+
+</form>

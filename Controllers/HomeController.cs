@@ -18,6 +18,7 @@ namespace BussinesEmployee.Controllers
         {
             var model = new DataViewModel()
             {
+                //this a comment
                 DepartmentNumber = dataRepo.GetTotaldepartmentNumber(),
                 EmployeeNumber = dataRepo.GetTotalEmployeeNumers(),
                 RolesNumber=dataRepo.GetTotalRolesNumber()

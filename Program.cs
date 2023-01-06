@@ -9,9 +9,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Identity;
-using BussinesEmployee.Resource.Account.Account_Login;
-using System.Reflection;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,12 +32,6 @@ builder.Services.AddScoped<IDataRepo,DataRepo>();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<DbContainer>()
     .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>(TokenOptions.DefaultProvider);
 
-builder.Services.AddAuthentication()
-    .AddGoogle(o =>
-    {
-        o.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        o.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
 
 var supportedCultures = new[]
 {
